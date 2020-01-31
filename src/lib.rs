@@ -92,7 +92,10 @@ fn copy_to_target(config: &CopyItems, from: &PathBuf, to: &PathBuf) {
 
 impl Build {
     pub fn new() -> Self {
-        let dir: PathBuf = env::var("CARGO_MANIFEST_DIR").unwrap().into();
+        let dir: PathBuf = env::var("CARGO_MANIFEST_DIR")
+            .ok()
+            .unwrap_or("".into())
+            .into();
         Build {
             project_directory: dir.clone(),
             copy: CopyItems::Nothing,
