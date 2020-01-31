@@ -92,14 +92,10 @@ fn copy_to_target(config: &CopyItems, from: &PathBuf, to: &PathBuf) {
 
 impl Build {
     pub fn new() -> Self {
-        let dir: PathBuf = env::var("CARGO_MANIFEST_DIR")
-            .ok()
-            .unwrap_or("".into())
-            .into();
         Build {
-            project_directory: dir.clone(),
+            project_directory: "".into(),
             copy: CopyItems::Nothing,
-            target_directory: dir,
+            target_directory: "".into(),
             installed: false,
             node_env: node_env(),
         }
@@ -128,9 +124,6 @@ impl Build {
 
     pub fn copy_items<L: IntoIterator<Item = P>, P: AsRef<Path>>(&mut self, items: L) -> &mut Self {
         self.copy = CopyItems::Some(items.into_iter().map(|p| p.as_ref().into()).collect());
-        if self.target_directory == self.project_directory {
-            self.target_directory = PathBuf::from(env::var("OUT_DIR").unwrap()).join("npm");
-        }
         self
     }
 
