@@ -76,6 +76,12 @@ pub struct Build {
     node_env: NodeEnv,
 }
 
+impl Default for Build {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 fn is_release() -> bool {
     !cfg!(debug_assertions)
 }
