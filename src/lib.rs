@@ -17,19 +17,15 @@
 //! Use the [`Build`] struct to run `npm run build` in the target directory.
 //!
 //! ```no_run
-//! // build.rs
-//!
 //! use npm_rs::Build;
 //! use std::env;
 //! use std::path::PathBuf;
 //!
-//! fn main() {
-//!     Build::new()
-//!         .project_directory(env::var("CARGO_MANIFEST_DIR").unwrap())
-//!         .target_directory(PathBuf::from(env::var("OUT_DIR").unwrap()).join("npm_dir"))
-//!         .copy_all()
-//!         .run_script("build");
-//! }
+//! Build::new()
+//!     .project_directory(env::var("CARGO_MANIFEST_DIR").unwrap())
+//!     .target_directory(PathBuf::from(env::var("OUT_DIR").unwrap()).join("npm_dir"))
+//!     .copy_all()
+//!     .run_script("build");
 //! ```
 //!
 //! [`Build`]: struct.Build.html
