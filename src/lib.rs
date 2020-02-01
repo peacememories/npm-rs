@@ -246,7 +246,7 @@ impl Build {
             let cmd = if is_release() { "ci" } else { "install" };
 
             let npm_status = Command::new(&npm)
-                .env("NODE_ENV", self.node_env.to_env_var())
+                .env("NODE_ENV", NodeEnv::Development.to_env_var())
                 .arg(cmd)
                 .current_dir(&self.target_directory)
                 .status()
@@ -254,6 +254,8 @@ impl Build {
             if !npm_status.success() {
                 panic!("Npm install/ci failed with a non 0 exit code");
             }
+
+            self.installed = true;
         }
 
         let npm_status = Command::new(&npm)
